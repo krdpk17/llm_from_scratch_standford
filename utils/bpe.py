@@ -1,3 +1,25 @@
+"""
+Byte Pair Encoding (BPE) Implementation
+
+This module provides a simple Byte Pair Encoding (BPE) class for subword tokenization, commonly used in transformer models.
+
+BPE is a data compression and tokenization technique that iteratively merges the most frequent pairs of symbols (characters or subwords) in a corpus to build a vocabulary of subword units. This allows for efficient handling of rare and unknown words by breaking them into more frequent subword tokens.
+
+How it works:
+1. Training (fit):
+   - The corpus is split into words, each word into characters, with a special end-of-word token (</w>).
+   - The most frequent pair of symbols is merged into a new symbol.
+   - This process repeats for a specified number of merges, building a list of merge rules (bpe_merges).
+
+2. Encoding:
+   - New words are split into characters and the learned merges are applied in order, combining pairs as specified by the rules.
+   - The result is a sequence of subword tokens for each word.
+
+3. Decoding:
+   - The subword tokens are joined to reconstruct the original words (removing the end-of-word token).
+
+This implementation is suitable for educational purposes and small-scale experiments. For large-scale or production use, consider using optimized libraries such as HuggingFace Tokenizers.
+"""
 from collections import Counter, defaultdict
 from typing import List, Tuple
 
